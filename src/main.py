@@ -84,7 +84,7 @@ def generate_image(text):
     return image
 
 def main(event, context):
-    text = urllib.parse.unquote(event['pathParameters']['string'])
+    text = urllib.parse.unquote_plus(event['pathParameters']['string'])
     image = generate_image(text)
     filename = hashlib.sha1(text.encode()).hexdigest() + '.jpg'
 
