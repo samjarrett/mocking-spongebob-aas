@@ -1,0 +1,106 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  CertificateArn:
+    Type: String
+
+  DomainName: 
+    Type: String
+
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref Bucket
+      PolicyDocument:
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Sub "${Bucket.Arn}/*"
+
+  Role:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: Logging
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "*"
+        - PolicyName: S3
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                Resource: 
+                  - !Sub "${Bucket.Arn}/*"
+
+  LogGroupGenerate:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${GenerateFunction}"
+      RetentionInDays: 7
+
+  Api: 
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+
+  APIDomainName:
+    Type: AWS::ApiGateway::DomainName
+    Properties:
+      CertificateArn: !Ref CertificateArn
+      DomainName: !Ref DomainName
+
+  APIBasePathMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      DomainName: !Ref APIDomainName
+      RestApiId: !Ref Api
+      Stage: Prod
+  
+  GenerateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: main.main
+      Runtime: python3.7
+      CodeUri: ../build
+      Role: !GetAtt Role.Arn
+      Timeout: 30
+      Environment:
+        Variables:
+          BUCKET_NAME: !Ref Bucket
+          BUCKET_URL: !GetAtt Bucket.WebsiteURL
+      Events:
+        GenerateResource:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /{string}
+            Method: get
+
+Outputs:
+  DomainName:
+    Value: !GetAtt APIDomainName.DistributionDomainName

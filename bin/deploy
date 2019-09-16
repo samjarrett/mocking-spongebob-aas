@@ -1,0 +1,33 @@
+#!/bin/bash -eu
+set -o pipefail
+
+STACK_NAME="mocking-spongebob"
+STACK_FILE="deploy/mocking-spongebob.yml"
+
+if [ ! -d build ]; then
+    DIRNAME="$(dirname "$0")"
+    echo "You need to build first. Run ${DIRNAME}/build"
+    exit 1
+fi
+
+CLOUDFORMATION_SERVICE_ROLE=$(aws cloudformation describe-stacks \
+  --stack-name "aws-admin-service-role" \
+  --query "Stacks[*].Outputs[?OutputKey == 'Role'].OutputValue" \
+  --output text)
+
+PACKAGED_STACK_DIR=$(dirname ${STACK_FILE})
+PACKAGED_STACK_FILE="${PACKAGED_STACK_DIR}/$(basename -s .yml ${STACK_FILE}).packaged.yml"
+
+aws cloudformation package \
+  --template-file ${STACK_FILE} \
+  --s3-bucket sam-cfscripts \
+  --output-template-file ${PACKAGED_STACK_FILE}
+
+echo ">> Deploying stack ${STACK_NAME}"
+
+aws cloudformation deploy \
+  --template-file ${PACKAGED_STACK_FILE} \
+  --stack-name ${STACK_NAME} \
+  --capabilities CAPABILITY_IAM \
+  --role-arn "${CLOUDFORMATION_SERVICE_ROLE}" \
+  --parameter-overrides "DomainName=${DOMAIN_NAME}" "CertificateArn=${CERTIFICATE_ARN}"
