@@ -1,0 +1,8 @@
+#!/bin/bash -eu
+set -o pipefail
+
+rm -rf build
+
+docker build -t mocking-spongebob .
+
+docker run --rm -v $PWD/build/python:/build mocking-spongebob sh -c 'cp -a /deps/* /build/'

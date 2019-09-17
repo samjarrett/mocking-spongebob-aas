@@ -1,4 +1,4 @@
-venv
-build
+/venv
+/build
 __pycache__
 deploy/mocking-spongebob.packaged.yml

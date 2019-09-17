@@ -4,17 +4,14 @@ import math
 import sys
 import os
 import urllib.parse
+import base64
 from io import BytesIO
-import boto3
 from PIL import Image, ImageDraw, ImageFont
 
 FONT = ImageFont.truetype('./HelveticaNeue-Thin.ttf', 28)
 
 HEIGHT = 369
 PADDING = 30
-
-BUCKET_NAME = os.environ.get('BUCKET_NAME')
-BUCKET_URL = os.environ.get('BUCKET_URL')
 
 def wrap_text(text, width, font):
     text_lines = []
@@ -91,22 +88,19 @@ def main(event, context):
     outputFile = BytesIO()
     image.save(outputFile, 'JPEG')
     outputFile.seek(0)
-    s3 = boto3.client('s3')
-    s3.put_object(Bucket=BUCKET_NAME, Key=filename, ContentType='image/jpeg', Body=outputFile)
 
-    url = BUCKET_URL+'/'+filename
-    response = {}
-    response['statusCode'] = 302
-    response['headers'] = {
-        'Location': url
+    response = {
+        "statusCode": 200,
+        "headers": { "content-type": "image/jpeg"},
+        "body": base64.b64encode(outputFile.read()).decode('utf-8'),
+        "isBase64Encoded": True,
     }
-    response['body'] = url
 
     return response
 
 if __name__ == '__main__':
-    main({
+    print(main({
         'pathParameters': {
             'string': sys.argv[1]
         }
-    }, None)
+    }, None))

@@ -1,6 +1,8 @@
 #!/bin/bash -eu
 set -o pipefail
 
+source "deploy-vars"
+
 STACK_NAME="mocking-spongebob"
 STACK_FILE="deploy/mocking-spongebob.yml"
 
@@ -29,5 +31,4 @@ aws cloudformation deploy \
   --template-file ${PACKAGED_STACK_FILE} \
   --stack-name ${STACK_NAME} \
   --capabilities CAPABILITY_IAM \
-  --role-arn "${CLOUDFORMATION_SERVICE_ROLE}" \
   --parameter-overrides "DomainName=${DOMAIN_NAME}" "CertificateArn=${CERTIFICATE_ARN}"
