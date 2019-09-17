@@ -71,7 +71,7 @@ def resize_canvas(image_path="mocking-spongebob.jpg", canvas_height=369):
     return newImage
 
 def generate_image(text):
-    text = "\n".join(wrap_text(mocking_case(text), 480, FONT))
+    text = "\n".join(wrap_text(mocking_case(text), 460, FONT))
     height = get_text_height(text)
 
     image = resize_canvas(canvas_height=(HEIGHT + PADDING + height))
@@ -80,7 +80,7 @@ def generate_image(text):
 
     return image
 
-def main(event, context):
+def handle_lambda(event, context):
     text = urllib.parse.unquote_plus(event['pathParameters']['string'])
     image = generate_image(text)
     filename = hashlib.sha1(text.encode()).hexdigest() + '.jpg'
@@ -98,9 +98,12 @@ def main(event, context):
 
     return response
 
+def demo(text):
+    text = urllib.parse.unquote_plus(text)
+    image = generate_image(text)
+    filename = hashlib.sha1(text.encode()).hexdigest() + '.jpg'
+
+    image.save('output.jpg', 'JPEG')
+
 if __name__ == '__main__':
-    print(main({
-        'pathParameters': {
-            'string': sys.argv[1]
-        }
-    }, None))
+    demo(sys.argv[1])

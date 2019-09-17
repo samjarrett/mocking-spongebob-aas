@@ -67,7 +67,7 @@ Resources:
   GenerateFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: main.main
+      Handler: main.handle_lambda
       Runtime: python3.7
       CodeUri: ../src
       Layers:
