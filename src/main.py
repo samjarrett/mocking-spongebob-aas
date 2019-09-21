@@ -1,4 +1,3 @@
-from itertools import cycle
 import hashlib
 import math
 import sys
@@ -7,6 +6,7 @@ import urllib.parse
 import base64
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
+from text_manipulations import mocking_case
 
 FONT = ImageFont.truetype('./HelveticaNeue-Thin.ttf', 28)
 
@@ -36,11 +36,6 @@ def wrap_text(text, width, font):
         text_lines.append(' '.join(text_line))
 
     return text_lines
-
-def mocking_case(text):
-    funcs = cycle([str.lower, str.upper])
-
-    return ''.join(next(funcs)(c) for c in text)
 
 def get_text_height(text):
     image = Image.new('RGB', (480, 500))
