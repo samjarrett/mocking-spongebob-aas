@@ -36,6 +36,12 @@ Resources:
       LogGroupName: !Sub "/aws/lambda/${GenerateFunction}"
       RetentionInDays: 7
 
+  LogGroupSlashCommand:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${SlashCommandFunction}"
+      RetentionInDays: 7
+
   Api: 
     Type: AWS::Serverless::Api
     Properties:
@@ -81,6 +87,22 @@ Resources:
             RestApiId: !Ref Api
             Path: /{string}
             Method: get
+
+  SlashCommandFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: slash.handle_lambda
+      Runtime: python3.7
+      CodeUri: ../src
+      Role: !GetAtt Role.Arn
+      Timeout: 30
+      Events:
+        SlashCommandResource:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /slack
+            Method: post
 
 Outputs:
   DomainName:
