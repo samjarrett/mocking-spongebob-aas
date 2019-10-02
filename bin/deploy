@@ -12,11 +12,6 @@ if [ ! -d build ]; then
     exit 1
 fi
 
-CLOUDFORMATION_SERVICE_ROLE=$(aws cloudformation describe-stacks \
-  --stack-name "aws-admin-service-role" \
-  --query "Stacks[*].Outputs[?OutputKey == 'Role'].OutputValue" \
-  --output text)
-
 PACKAGED_STACK_DIR=$(dirname ${STACK_FILE})
 PACKAGED_STACK_FILE="${PACKAGED_STACK_DIR}/$(basename -s .yml ${STACK_FILE}).packaged.yml"
 

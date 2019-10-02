@@ -96,6 +96,7 @@ Resources:
       CodeUri: ../src
       Role: !GetAtt Role.Arn
       Timeout: 30
+      MemorySize: 128
       Events:
         SlashCommandResource:
           Type: Api
