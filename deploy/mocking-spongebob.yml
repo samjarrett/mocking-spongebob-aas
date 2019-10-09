@@ -5,7 +5,7 @@ Parameters:
   CertificateArn:
     Type: String
 
-  DomainName: 
+  DomainName:
     Type: String
 
 Resources:
@@ -42,11 +42,11 @@ Resources:
       LogGroupName: !Sub "/aws/lambda/${SlashCommandFunction}"
       RetentionInDays: 7
 
-  Api: 
+  Api:
     Type: AWS::Serverless::Api
     Properties:
       StageName: Prod
-      BinaryMediaTypes: 
+      BinaryMediaTypes:
         - "*~1*"
 
   APIDomainName:
@@ -61,11 +61,11 @@ Resources:
       DomainName: !Ref APIDomainName
       RestApiId: !Ref Api
       Stage: Prod
-  
+
   GenerateLibraries:
     Type: AWS::Serverless::LayerVersion
     Properties:
-      CompatibleRuntimes: 
+      CompatibleRuntimes:
         - python3.7
       RetentionPolicy: Delete
       ContentUri: ../build
@@ -75,7 +75,7 @@ Resources:
     Properties:
       Handler: main.handle_lambda
       Runtime: python3.7
-      CodeUri: ../src
+      CodeUri: ../mocking_spongebob
       Layers:
         - !Ref GenerateLibraries
       Role: !GetAtt Role.Arn
@@ -93,7 +93,7 @@ Resources:
     Properties:
       Handler: slash.handle_lambda
       Runtime: python3.7
-      CodeUri: ../src
+      CodeUri: ../mocking_spongebob
       Role: !GetAtt Role.Arn
       Timeout: 30
       MemorySize: 128
