@@ -75,7 +75,7 @@ Resources:
     Properties:
       Handler: main.handle_lambda
       Runtime: python3.7
-      CodeUri: ../src
+      CodeUri: ../mocking_spongebob
       Layers:
         - !Ref GenerateLibraries
       Role: !GetAtt Role.Arn
@@ -93,7 +93,7 @@ Resources:
     Properties:
       Handler: slash.handle_lambda
       Runtime: python3.7
-      CodeUri: ../src
+      CodeUri: ../mocking_spongebob
       Role: !GetAtt Role.Arn
       Timeout: 30
       MemorySize: 128
