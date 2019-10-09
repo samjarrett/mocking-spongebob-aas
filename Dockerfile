@@ -6,4 +6,5 @@ RUN set -xe && \
     pip install -r /tmp/requirements.txt -t . && \
     true
 
-COPY src /src
+COPY mocking_spongebob /app/mocking_spongebob
+COPY tests /app/tests
