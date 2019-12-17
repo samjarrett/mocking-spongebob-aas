@@ -31,7 +31,7 @@ def generate_slack_response(text):
     return response
 
 
-def handle_lambda(event, context):
+def handle_lambda(event, context): # pylint: disable=unused-argument
     body = urllib.parse.parse_qs(base64.b64decode(event["body"]).decode())
 
     text = body['text'][0]

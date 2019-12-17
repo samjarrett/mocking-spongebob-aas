@@ -1,5 +1,3 @@
-from itertools import cycle
-
 def mocking_case(text):
     value = ''
     prev = ''

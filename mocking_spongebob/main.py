@@ -77,7 +77,7 @@ def generate_image(text):
     return image
 
 
-def handle_lambda(event, context):
+def handle_lambda(event, context): # pylint: disable=unused-argument
     text = urllib.parse.unquote_plus(event['pathParameters']['string'])
     image = generate_image(text)
 
