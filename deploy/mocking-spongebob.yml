@@ -9,27 +9,6 @@ Parameters:
     Type: String
 
 Resources:
-  Role:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: "Allow"
-            Principal:
-              Service: lambda.amazonaws.com
-            Action: sts:AssumeRole
-      Policies:
-        - PolicyName: Logging
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: Allow
-                Action:
-                  - logs:CreateLogStream
-                  - logs:PutLogEvents
-                Resource: "*"
-
   LogGroupGenerate:
     Type: AWS::Logs::LogGroup
     Properties:
@@ -42,24 +21,23 @@ Resources:
       LogGroupName: !Sub "/aws/lambda/${SlashCommandFunction}"
       RetentionInDays: 7
 
-  Api:
-    Type: AWS::Serverless::Api
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
     Properties:
       StageName: Prod
-      BinaryMediaTypes:
-        - "*~1*"
 
-  APIDomainName:
-    Type: AWS::ApiGateway::DomainName
+  ApiDomainName:
+    Type: AWS::ApiGatewayV2::DomainName
     Properties:
-      CertificateArn: !Ref CertificateArn
+      DomainNameConfigurations:
+        - CertificateArn: !Ref CertificateArn
       DomainName: !Ref DomainName
 
-  APIBasePathMapping:
-    Type: AWS::ApiGateway::BasePathMapping
+  ApiMapping:
+    Type: AWS::ApiGatewayV2::ApiMapping
     Properties:
-      DomainName: !Ref APIDomainName
-      RestApiId: !Ref Api
+      DomainName: !Ref ApiDomainName
+      ApiId: !Ref HttpApi
       Stage: Prod
 
   GenerateLibraries:
@@ -78,13 +56,12 @@ Resources:
       CodeUri: ../mocking_spongebob
       Layers:
         - !Ref GenerateLibraries
-      Role: !GetAtt Role.Arn
       Timeout: 30
       Events:
         GenerateResource:
-          Type: Api
+          Type: HttpApi
           Properties:
-            RestApiId: !Ref Api
+            ApiId: !Ref HttpApi
             Path: /{string}
             Method: get
 
@@ -94,17 +71,16 @@ Resources:
       Handler: slash.handle_lambda
       Runtime: python3.7
       CodeUri: ../mocking_spongebob
-      Role: !GetAtt Role.Arn
       Timeout: 30
       MemorySize: 128
       Events:
         SlashCommandResource:
-          Type: Api
+          Type: HttpApi
           Properties:
-            RestApiId: !Ref Api
+            ApiId: !Ref HttpApi
             Path: /slack
             Method: post
 
 Outputs:
   DomainName:
-    Value: !GetAtt APIDomainName.DistributionDomainName
+    Value: !GetAtt ApiDomainName.RegionalDomainName
