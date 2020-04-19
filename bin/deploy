@@ -22,8 +22,8 @@ aws cloudformation package \
 
 echo ">> Deploying stack ${STACK_NAME}"
 
-aws cloudformation deploy \
+"$(dirname "$0")/cfn-sync" deploy \
   --template-file ${PACKAGED_STACK_FILE} \
   --stack-name ${STACK_NAME} \
-  --capabilities CAPABILITY_IAM \
+  --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND \
   --parameter-overrides "DomainName=${DOMAIN_NAME}" "CertificateArn=${CERTIFICATE_ARN}"
