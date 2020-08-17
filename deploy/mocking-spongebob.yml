@@ -2,13 +2,22 @@ AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
 
 Parameters:
-  CertificateArn:
+  HostName:
     Type: String
 
-  DomainName:
+  BaseDomainName:
     Type: String
 
 Resources:
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Sub "${HostName}.${BaseDomainName}"
+      DomainValidationOptions:
+        - DomainName: !Sub "${HostName}.${BaseDomainName}"
+          ValidationDomain: !Ref BaseDomainName
+      ValidationMethod: DNS
+
   LogGroupGenerate:
     Type: AWS::Logs::LogGroup
     Properties:
@@ -30,8 +39,8 @@ Resources:
     Type: AWS::ApiGatewayV2::DomainName
     Properties:
       DomainNameConfigurations:
-        - CertificateArn: !Ref CertificateArn
-      DomainName: !Ref DomainName
+        - CertificateArn: !Ref Certificate
+      DomainName: !Sub "${HostName}.${BaseDomainName}"
 
   ApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping

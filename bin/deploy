@@ -26,4 +26,4 @@ echo ">> Deploying stack ${STACK_NAME}"
   --template-file ${PACKAGED_STACK_FILE} \
   --stack-name ${STACK_NAME} \
   --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND \
-  --parameter-overrides "DomainName=${DOMAIN_NAME}" "CertificateArn=${CERTIFICATE_ARN}"
+  --parameter-overrides "BaseDomainName=${BASE_DOMAIN_NAME}" "HostName=${HOST_NAME}"
