@@ -6,7 +6,6 @@
 #
 astroid==2.4.2            # via pylint
 attrs==19.3.0             # via pytest
-importlib-metadata==1.7.0  # via pluggy, pytest
 iniconfig==1.0.1          # via pytest
 isort==4.3.21             # via pylint
 lazy-object-proxy==1.4.3  # via astroid
@@ -16,11 +15,9 @@ packaging==20.4           # via pytest
 pillow==7.2.0             # via -r requirements.txt
 pluggy==0.13.1            # via pytest
 py==1.9.0                 # via pytest
-pylint==2.5.3             # via -r dev-requirements.in
+pylint==2.6.0             # via -r dev-requirements.in
 pyparsing==2.4.7          # via packaging
 pytest==6.0.1             # via -r dev-requirements.in
 six==1.15.0               # via astroid, packaging
 toml==0.10.1              # via pylint, pytest
-typed-ast==1.4.1          # via astroid
 wrapt==1.12.1             # via astroid
-zipp==3.1.0               # via importlib-metadata
