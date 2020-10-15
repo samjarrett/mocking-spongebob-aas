@@ -16,9 +16,12 @@ Resources:
               - Effect: Allow
                 Action:
                   - acm:*
+                  - apigateway:*
                   - apigatewayv2:*
                   - logs:*
                   - lambda:*
+                  - iam:*
+                  - s3:GetObject
                 Resource: "*"
                 Condition:
                   "ForAnyValue:StringEquals":

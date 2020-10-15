@@ -10,7 +10,6 @@ RUN set -xe && \
 COPY requirements.txt /tmp/
 RUN set -xe && \
     pip install -r /tmp/requirements.txt -t . && \
-    find . -name __pycache__ -type d | xargs rm -rf && \
     true
 
 COPY mocking_spongebob /app/mocking_spongebob
