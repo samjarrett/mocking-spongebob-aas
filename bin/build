@@ -6,5 +6,3 @@ rm -rf build
 docker build -t mocking-spongebob .
 
 docker run --rm -v $PWD/build/python:/build mocking-spongebob sh -c 'cp -a /deps/* /build/'
-
-find build -name __pycache__ -type d | xargs rm -rf
