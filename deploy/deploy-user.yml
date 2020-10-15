@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Resources:
+  Group:
+    Type: AWS::IAM::Group
+    Properties:
+      Policies:
+        - PolicyName: deploy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "cloudformation:*"
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - acm:*
+                  - apigatewayv2:*
+                  - logs:*
+                  - lambda:*
+                Resource: "*"
+                Condition:
+                  "ForAnyValue:StringEquals":
+                    "aws:CalledVia":
+                      - cloudformation.amazonaws.com
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                Resource: "arn:aws:s3:::sam-cfscripts/*"
+
+  User:
+    Type: AWS::IAM::User
+    Properties:
+      Groups:
+        - !Ref Group
