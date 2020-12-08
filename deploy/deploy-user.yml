@@ -12,6 +12,13 @@ Resources:
               - Effect: Allow
                 Action:
                   - "cloudformation:*"
+                Resource:
+                  - !Sub "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/mocking-spongebob/*"
+                  - !Sub "arn:aws:cloudformation:${AWS::Region}:*:transform/*"
+              - Effect: Allow
+                Action:
+                  - "cloudformation:Describe*"
+                  - "cloudformation:ValidateTemplate"
                 Resource: "*"
               - Effect: Allow
                 Action:
