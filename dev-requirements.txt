@@ -4,19 +4,39 @@
 #
 #    pip-compile dev-requirements.in
 #
-astroid==2.4.2            # via pylint
-attrs==19.3.0             # via pytest
-iniconfig==1.0.1          # via pytest
-isort==4.3.21             # via pylint
-lazy-object-proxy==1.4.3  # via astroid
-mccabe==0.6.1             # via pylint
-packaging==20.4           # via pytest
-pillow==8.1.0             # via -r requirements.txt
-pluggy==0.13.1            # via pytest
-py==1.9.0                 # via pytest
-pylint==2.6.0             # via -r dev-requirements.in
-pyparsing==2.4.7          # via packaging
-pytest==6.2.1             # via -r dev-requirements.in
-six==1.15.0               # via astroid, packaging
-toml==0.10.1              # via pylint, pytest
-wrapt==1.12.1             # via astroid
+astroid==2.4.2
+    # via pylint
+attrs==19.3.0
+    # via pytest
+iniconfig==1.0.1
+    # via pytest
+isort==4.3.21
+    # via pylint
+lazy-object-proxy==1.4.3
+    # via astroid
+mccabe==0.6.1
+    # via pylint
+packaging==20.4
+    # via pytest
+pillow==8.1.0
+    # via -r requirements.txt
+pluggy==0.13.1
+    # via pytest
+py==1.9.0
+    # via pytest
+pylint==2.6.0
+    # via -r dev-requirements.in
+pyparsing==2.4.7
+    # via packaging
+pytest==6.2.2
+    # via -r dev-requirements.in
+six==1.15.0
+    # via
+    #   astroid
+    #   packaging
+toml==0.10.1
+    # via
+    #   pylint
+    #   pytest
+wrapt==1.12.1
+    # via astroid
