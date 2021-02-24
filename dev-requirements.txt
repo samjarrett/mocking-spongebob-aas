@@ -24,7 +24,7 @@ pluggy==0.13.1
     # via pytest
 py==1.9.0
     # via pytest
-pylint==2.7.0
+pylint==2.7.1
     # via -r dev-requirements.in
 pyparsing==2.4.7
     # via packaging
