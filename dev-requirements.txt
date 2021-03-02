@@ -18,7 +18,7 @@ mccabe==0.6.1
     # via pylint
 packaging==20.4
     # via pytest
-pillow==8.1.0
+pillow==8.1.1
     # via -r requirements.txt
 pluggy==0.13.1
     # via pytest
