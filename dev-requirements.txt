@@ -28,7 +28,7 @@ pylint==2.7.4
     # via -r dev-requirements.in
 pyparsing==2.4.7
     # via packaging
-pytest==6.2.2
+pytest==6.2.3
     # via -r dev-requirements.in
 six==1.15.0
     # via packaging
