@@ -4,7 +4,7 @@
 #
 #    pip-compile dev-requirements.in
 #
-astroid==2.7.2
+astroid==2.8.0
     # via pylint
 attrs==19.3.0
     # via pytest
@@ -26,7 +26,7 @@ pluggy==0.13.1
     # via pytest
 py==1.10.0
     # via pytest
-pylint==2.10.2
+pylint==2.11.0
     # via -r dev-requirements.in
 pyparsing==2.4.7
     # via packaging
@@ -38,5 +38,9 @@ toml==0.10.1
     # via
     #   pylint
     #   pytest
+typing-extensions==3.10.0.2
+    # via
+    #   astroid
+    #   pylint
 wrapt==1.12.1
     # via astroid
