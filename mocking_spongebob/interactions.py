@@ -29,6 +29,7 @@ def handle_lambda(event, context):  # pylint: disable=unused-argument
         url = "https://mock.sam.wtf/" + urllib.parse.quote_plus(text)
         response = {
             "response_type": "in_channel",
+            "thread_ts": action["message"].get("thread_ts"),
             "blocks": [
                 {
                     "type": "image",
