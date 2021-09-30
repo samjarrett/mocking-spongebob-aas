@@ -1,8 +1,10 @@
+import base64
 import sys
 import urllib.parse
-import base64
 from io import BytesIO
+
 from PIL import Image, ImageDraw, ImageFont
+
 from text_manipulations import mocking_case
 
 FONT = ImageFont.truetype('./HelveticaNeue-Thin.ttf', 28)
