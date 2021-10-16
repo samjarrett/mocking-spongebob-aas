@@ -1,26 +1,61 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - main
+  push: ~
 
 env:
   HOST_NAME: mock
   BASE_DOMAIN_NAME: sam.wtf
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/dev-requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r dev-requirements.txt
+
+      - name: pytest
+        run: python -m pytest
+
+      - name: isort
+        run: isort --profile black --check mocking_spongebob tests
+
+      - name: black
+        run: black --check mocking_spongebob tests
+
+      - name: pylint
+        run: pylint mocking_spongebob tests
+
+      - name: mypy
+        run: mypy mocking_spongebob tests
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Build the package
         run: bin/build
-
-      - name: Run tests
-        run: bin/test
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1

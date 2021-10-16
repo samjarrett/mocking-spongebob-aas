@@ -1,6 +1,0 @@
-#!/bin/bash -eu
-set -o pipefail
-
-docker build -t mocking-spongebob .
-
-docker run --rm -w /app mocking-spongebob pytest

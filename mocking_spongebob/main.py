@@ -2,44 +2,48 @@ import base64
 import sys
 import urllib.parse
 from io import BytesIO
+from typing import List, Tuple, Union
 
-from PIL import Image, ImageDraw, ImageFont
-
+from PIL import Image, ImageDraw, ImageFont  # type: ignore
 from text_manipulations import mocking_case
 
-FONT = ImageFont.truetype('./HelveticaNeue-Thin.ttf', 28)
+FONT = ImageFont.truetype("./HelveticaNeue-Thin.ttf", 28)
 
 HEIGHT = 369
 PADDING = 30
 
+BackgroundType = Union[int, Tuple[int, int, int, int], Tuple[int, int, int]]
 
-def wrap_text(text, width, font):
-    text_lines = []
-    text_line = []
-    text = text.replace('\n', ' [br] ')
+
+def wrap_text(text: str, width: int, font: ImageFont.FreeTypeFont):
+    """Wrap text to new lines to meet a given width"""
+    text_lines: List[str] = []
+    text_line: List[str] = []
+    text = text.replace("\n", " [br] ")
     words = text.split()
 
     for word in words:
-        if word == '[br]':
-            text_lines.append(' '.join(text_line))
+        if word == "[br]":
+            text_lines.append(" ".join(text_line))
             text_line = []
             continue
 
         text_line.append(word)
-        text_width, _ = font.getsize(' '.join(text_line))
+        text_width, _ = font.getsize(" ".join(text_line))
         if text_width > width:
             text_line.pop()
-            text_lines.append(' '.join(text_line))
+            text_lines.append(" ".join(text_line))
             text_line = [word]
 
     if text_line:
-        text_lines.append(' '.join(text_line))
+        text_lines.append(" ".join(text_line))
 
     return text_lines
 
 
-def get_text_height(text):
-    image = Image.new('RGB', (480, 500))
+def get_text_height(text: str) -> int:
+    """Get the total text height"""
+    image = Image.new("RGB", (480, 500))
     drawer = ImageDraw.Draw(image)
 
     _, height = drawer.multiline_textsize(text, font=FONT, spacing=10)
@@ -47,7 +51,10 @@ def get_text_height(text):
     return height
 
 
-def resize_canvas(image_path="mocking-spongebob.jpg", canvas_height=369):
+def resize_canvas(
+    image_path: str = "mocking-spongebob.jpg", canvas_height: int = 369
+) -> Image:
+    """Resize the canvas to the given height"""
     image = Image.open(image_path)
     width, height = image.size
 
@@ -56,7 +63,7 @@ def resize_canvas(image_path="mocking-spongebob.jpg", canvas_height=369):
 
     mode = image.mode
     if len(mode) == 1:  # L, 1
-        new_background = (255)
+        new_background: BackgroundType = 255
     if len(mode) == 3:  # RGB
         new_background = (255, 255, 255)
     if len(mode) == 4:  # RGBA, CMYK
@@ -68,7 +75,8 @@ def resize_canvas(image_path="mocking-spongebob.jpg", canvas_height=369):
     return new_image
 
 
-def generate_image(text):
+def generate_image(text: str):
+    """Generate an image object for a given text"""
     text = "\n".join(wrap_text(mocking_case(text), 460, FONT))
     height = get_text_height(text)
 
@@ -79,30 +87,32 @@ def generate_image(text):
     return image
 
 
-def handle_lambda(event, context): # pylint: disable=unused-argument
-    text = urllib.parse.unquote_plus(event['pathParameters']['string'])
+def handle_lambda(event, context):  # pylint: disable=unused-argument
+    """The main entry point"""
+    text = urllib.parse.unquote_plus(event["pathParameters"]["string"])
     image = generate_image(text)
 
     output_file = BytesIO()
-    image.save(output_file, 'JPEG')
+    image.save(output_file, "JPEG")
     output_file.seek(0)
 
     response = {
         "statusCode": 200,
         "headers": {"content-type": "image/jpeg"},
-        "body": base64.b64encode(output_file.read()).decode('utf-8'),
+        "body": base64.b64encode(output_file.read()).decode("utf-8"),
         "isBase64Encoded": True,
     }
 
     return response
 
 
-def demo(text):
+def demo(text: str):
+    """Create a demo image"""
     text = urllib.parse.unquote_plus(text)
     image = generate_image(text)
 
-    image.save('output.jpg', 'JPEG')
+    image.save("output.jpg", "JPEG")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     demo(sys.argv[1])
