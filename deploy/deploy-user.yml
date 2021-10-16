@@ -1,43 +1,67 @@
 AWSTemplateFormatVersion: 2010-09-09
 
+Parameters:
+  GithubOidc:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /github/oidc-arn
+
 Resources:
+  Role:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRoleWithWebIdentity
+            Principal:
+              Federated: !Ref GithubOidc
+            Condition:
+              StringLike:
+                vstoken.actions.githubusercontent.com:sub: repo:samjarrett/mocking-spongebob-aas:*
+
+  Policy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: deploy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "cloudformation:*"
+            Resource:
+              - !Sub "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/mocking-spongebob/*"
+              - !Sub "arn:aws:cloudformation:${AWS::Region}:*:transform/*"
+          - Effect: Allow
+            Action:
+              - "cloudformation:Describe*"
+              - "cloudformation:ValidateTemplate"
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - acm:*
+              - apigateway:*
+              - apigatewayv2:*
+              - logs:*
+              - lambda:*
+              - iam:*
+              - s3:GetObject
+            Resource: "*"
+            Condition:
+              "ForAnyValue:StringEquals":
+                "aws:CalledVia":
+                  - cloudformation.amazonaws.com
+          - Effect: Allow
+            Action:
+              - s3:PutObject
+            Resource: "arn:aws:s3:::sam-cfscripts/*"
+      Roles:
+        - !Ref Role
+      Groups:
+        - !Ref Group
+
   Group:
     Type: AWS::IAM::Group
-    Properties:
-      Policies:
-        - PolicyName: deploy
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - "cloudformation:*"
-                Resource:
-                  - !Sub "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/mocking-spongebob/*"
-                  - !Sub "arn:aws:cloudformation:${AWS::Region}:*:transform/*"
-              - Effect: Allow
-                Action:
-                  - "cloudformation:Describe*"
-                  - "cloudformation:ValidateTemplate"
-                Resource: "*"
-              - Effect: Allow
-                Action:
-                  - acm:*
-                  - apigateway:*
-                  - apigatewayv2:*
-                  - logs:*
-                  - lambda:*
-                  - iam:*
-                  - s3:GetObject
-                Resource: "*"
-                Condition:
-                  "ForAnyValue:StringEquals":
-                    "aws:CalledVia":
-                      - cloudformation.amazonaws.com
-              - Effect: Allow
-                Action:
-                  - s3:PutObject
-                Resource: "arn:aws:s3:::sam-cfscripts/*"
 
   User:
     Type: AWS::IAM::User
