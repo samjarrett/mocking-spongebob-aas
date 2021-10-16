@@ -2,23 +2,12 @@ import base64
 import json
 import urllib.parse
 
-from text_manipulations import mocking_case
+from text_manipulations import generate_slack_blocks
 
 
 def generate_slack_response(text):
-    url = "https://mock.sam.wtf/" + urllib.parse.quote_plus(text)
-
-    body = {
-        "response_type": "in_channel",
-        "blocks": [
-            {
-                "type": "image",
-                "title": {"type": "plain_text", "text": mocking_case(text)},
-                "image_url": url,
-                "alt_text": mocking_case(text),
-            }
-        ],
-    }
+    """Generate a slack response"""
+    body = {"response_type": "in_channel", **generate_slack_blocks(text)}
 
     response = {
         "statusCode": 200,
@@ -30,6 +19,7 @@ def generate_slack_response(text):
 
 
 def handle_lambda(event, context):  # pylint: disable=unused-argument
+    """The main entry point"""
     body = event.get("body")
     if event.get("isBase64Encoded"):
         body = urllib.parse.parse_qs(base64.b64decode(event["body"]).decode())

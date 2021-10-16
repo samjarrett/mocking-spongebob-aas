@@ -3,8 +3,7 @@ import json
 import urllib.parse
 
 import requests
-
-from text_manipulations import mocking_case
+from text_manipulations import generate_slack_blocks
 
 TYPE = "message_action"
 MOCK_CALLBACK_ID = "mock_message"
@@ -12,6 +11,7 @@ UNMOCKABLE_TEXT = "This content can't be displayed."
 
 
 def handle_lambda(event, context):  # pylint: disable=unused-argument
+    """The main entry point"""
     body = event.get("body")
     if event.get("isBase64Encoded"):
         body = urllib.parse.parse_qs(base64.b64decode(event["body"]).decode())
@@ -26,18 +26,10 @@ def handle_lambda(event, context):  # pylint: disable=unused-argument
         if text == UNMOCKABLE_TEXT:
             continue
 
-        url = "https://mock.sam.wtf/" + urllib.parse.quote_plus(text)
         response = {
             "response_type": "in_channel",
             "thread_ts": action["message"].get("thread_ts"),
-            "blocks": [
-                {
-                    "type": "image",
-                    "title": {"type": "plain_text", "text": mocking_case(text)},
-                    "image_url": url,
-                    "alt_text": mocking_case(text),
-                }
-            ],
+            **generate_slack_blocks(text),
         }
         requests.post(
             action["response_url"],
