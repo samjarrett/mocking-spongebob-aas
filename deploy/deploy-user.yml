@@ -17,7 +17,8 @@ Resources:
               Federated: !Ref GithubOidc
             Condition:
               StringLike:
-                vstoken.actions.githubusercontent.com:sub: repo:samjarrett/mocking-spongebob-aas:*
+                token.actions.githubusercontent.com:sub:
+                  - repo:samjarrett/mocking-spongebob-aas:ref:refs/heads/main
 
   Policy:
     Type: AWS::IAM::Policy
@@ -57,14 +58,3 @@ Resources:
             Resource: "arn:aws:s3:::sam-cfscripts/*"
       Roles:
         - !Ref Role
-      Groups:
-        - !Ref Group
-
-  Group:
-    Type: AWS::IAM::Group
-
-  User:
-    Type: AWS::IAM::User
-    Properties:
-      Groups:
-        - !Ref Group
