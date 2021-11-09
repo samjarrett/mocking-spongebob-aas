@@ -6,6 +6,7 @@ if [ -f "deploy-vars" ]; then
 fi
 
 STACK_NAME="mocking-spongebob"
+IS_THIS_STACK_NAME="is-thiserator"
 STACK_FILE="deploy/mocking-spongebob.yml"
 
 if [ ! -d build ]; then
@@ -32,6 +33,6 @@ echo ">> Deploying stack ${STACK_NAME}"
 
 "$(dirname "$0")/cfn-sync" deploy \
   --template-file ${PACKAGED_STACK_FILE} \
-  --stack-name ${STACK_NAME} \
+  --stack-name ${IS_THIS_STACK_NAME} \
   --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND \
   --parameter-overrides "BaseDomainName=${BASE_DOMAIN_NAME}" "HostName=${IS_THIS_HOST_NAME}" "Module=is_this"
