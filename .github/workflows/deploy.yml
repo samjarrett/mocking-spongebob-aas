@@ -5,6 +5,7 @@ on:
 
 env:
   HOST_NAME: mock
+  IS_THIS_HOST_NAME: is-this
   BASE_DOMAIN_NAME: sam.wtf
 
 jobs:

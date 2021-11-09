@@ -1,11 +1,10 @@
-import base64
 import sys
 import urllib.parse
-from io import BytesIO
 from typing import List, Tuple, Union
 
 from PIL import Image, ImageDraw, ImageFont  # type: ignore
 from text_manipulations import mocking_case
+from utils import save_image_respond
 
 FONT = ImageFont.truetype("./HelveticaNeue-Thin.ttf", 28)
 
@@ -87,23 +86,10 @@ def generate_image(text: str):
     return image
 
 
-def handle_lambda(event, context):  # pylint: disable=unused-argument
+def handle_lambda(event, _):
     """The main entry point"""
     text = urllib.parse.unquote_plus(event["pathParameters"]["string"])
-    image = generate_image(text)
-
-    output_file = BytesIO()
-    image.save(output_file, "JPEG")
-    output_file.seek(0)
-
-    response = {
-        "statusCode": 200,
-        "headers": {"content-type": "image/jpeg"},
-        "body": base64.b64encode(output_file.read()).decode("utf-8"),
-        "isBase64Encoded": True,
-    }
-
-    return response
+    return save_image_respond(generate_image(text))
 
 
 def demo(text: str):
