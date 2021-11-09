@@ -2,7 +2,7 @@ import base64
 from io import BytesIO
 from typing import Any, Dict
 
-from PIL import Image
+from PIL import Image  # type: ignore
 
 
 def save_image_respond(image: Image) -> Dict[str, Any]:
