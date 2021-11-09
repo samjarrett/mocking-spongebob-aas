@@ -28,10 +28,10 @@ echo ">> Deploying stack ${STACK_NAME}"
   --template-file ${PACKAGED_STACK_FILE} \
   --stack-name ${STACK_NAME} \
   --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND \
-  --parameter-overrides "BaseDomainName=${BASE_DOMAIN_NAME}" "HostName=${HOST_NAME} Module=mocker"
+  --parameter-overrides "BaseDomainName=${BASE_DOMAIN_NAME}" "HostName=${HOST_NAME}" "Module=mocker"
 
 "$(dirname "$0")/cfn-sync" deploy \
   --template-file ${PACKAGED_STACK_FILE} \
   --stack-name ${STACK_NAME} \
   --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND \
-  --parameter-overrides "BaseDomainName=${BASE_DOMAIN_NAME}" "HostName=${IS_THIS_HOST_NAME} Module=is_this"
+  --parameter-overrides "BaseDomainName=${BASE_DOMAIN_NAME}" "HostName=${IS_THIS_HOST_NAME}" "Module=is_this"
