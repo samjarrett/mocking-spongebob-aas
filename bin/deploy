@@ -28,4 +28,4 @@ echo ">> Deploying stack ${STACK_NAME}"
   --template-file ${PACKAGED_STACK_FILE} \
   --stack-name ${STACK_NAME} \
   --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND \
-  --parameter-overrides "BaseDomainName=${BASE_DOMAIN_NAME}" "HostName=${HOST_NAME}"
+  --parameter-overrides "BaseDomainName=${BASE_DOMAIN_NAME}" "HostName=${HOST_NAME} Module=mocking_spongebob"
