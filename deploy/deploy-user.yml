@@ -32,6 +32,7 @@ Resources:
               - "cloudformation:*"
             Resource:
               - !Sub "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/mocking-spongebob/*"
+              - !Sub "arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/is-thiserator/*"
               - !Sub "arn:aws:cloudformation:${AWS::Region}:*:transform/*"
           - Effect: Allow
             Action:

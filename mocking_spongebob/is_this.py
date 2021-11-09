@@ -19,8 +19,8 @@ def generate_image(title: str, text: str):
     image = Image.open(IMAGE)
     drawer = ImageDraw.Draw(image)
 
-    font_size = 48
-    font = ImageFont.truetype("./impact.ttf", 48)
+    font_size = 60
+    font = ImageFont.truetype("./impact.ttf", font_size)
 
     drawer.text(
         (WIDTH / 2, 70),
