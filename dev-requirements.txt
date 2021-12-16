@@ -34,7 +34,7 @@ lazy-object-proxy==1.4.3
     # via astroid
 mccabe==0.6.1
     # via pylint
-mypy==0.910
+mypy==0.920
     # via -r dev-requirements.in
 mypy-extensions==0.4.3
     # via
@@ -66,11 +66,12 @@ six==1.15.0
     # via packaging
 toml==0.10.1
     # via
-    #   mypy
     #   pylint
     #   pytest
 tomli==1.2.1
-    # via black
+    # via
+    #   black
+    #   mypy
 types-requests==2.26.1
     # via -r dev-requirements.in
 typing-extensions==3.10.0.2
