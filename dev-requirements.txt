@@ -72,8 +72,10 @@ tomli==1.2.1
     # via
     #   black
     #   mypy
-types-requests==2.27.2
+types-requests==2.27.5
     # via -r dev-requirements.in
+types-urllib3==1.26.3
+    # via types-requests
 typing-extensions==3.10.0.2
     # via
     #   black
