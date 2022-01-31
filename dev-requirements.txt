@@ -8,7 +8,7 @@ astroid==2.9.0
     # via pylint
 attrs==19.3.0
     # via pytest
-black==21.12b0
+black==22.1.0
     # via -r dev-requirements.in
 certifi==2021.5.30
     # via
@@ -77,9 +77,7 @@ types-requests==2.27.8
 types-urllib3==1.26.3
     # via types-requests
 typing-extensions==3.10.0.2
-    # via
-    #   black
-    #   mypy
+    # via mypy
 urllib3==1.26.7
     # via
     #   -r requirements.txt
