@@ -58,20 +58,19 @@ pylint==2.12.2
     # via -r dev-requirements.in
 pyparsing==2.4.7
     # via packaging
-pytest==6.2.5
+pytest==7.0.0
     # via -r dev-requirements.in
 requests==2.27.1
     # via -r requirements.txt
 six==1.15.0
     # via packaging
 toml==0.10.1
-    # via
-    #   pylint
-    #   pytest
+    # via pylint
 tomli==1.2.1
     # via
     #   black
     #   mypy
+    #   pytest
 types-requests==2.27.8
     # via -r dev-requirements.in
 types-urllib3==1.26.3
