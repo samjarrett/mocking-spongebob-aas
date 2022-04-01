@@ -72,7 +72,7 @@ tomli==1.2.1
     #   mypy
     #   pylint
     #   pytest
-types-requests==2.27.15
+types-requests==2.27.16
     # via -r dev-requirements.in
 types-urllib3==1.26.3
     # via types-requests
