@@ -1,6 +1,0 @@
----
-requiredLabels:
-  - dependencies
-  - python
-
-reportStatus: true
