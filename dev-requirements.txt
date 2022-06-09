@@ -62,7 +62,7 @@ pyparsing==2.4.7
     # via packaging
 pytest==7.1.2
     # via -r dev-requirements.in
-requests==2.27.1
+requests==2.28.0
     # via -r requirements.txt
 six==1.15.0
     # via packaging
