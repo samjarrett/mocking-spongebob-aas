@@ -51,6 +51,18 @@ Resources:
         - CertificateArn: !Ref Certificate
       DomainName: !Sub "${HostName}.${BaseDomainName}"
 
+  DnsRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      AliasTarget:
+        DNSName: !GetAtt ApiDomainName.RegionalDomainName
+        HostedZoneId: !GetAtt ApiDomainName.RegionalHostedZoneId
+      Comment: !Sub "DNS Record for ${AWS::StackName}"
+      HostedZoneId: String
+      HostedZoneName: !Sub "${BaseDomainName}."
+      Name: !Sub "${HostName}.${BaseDomainName}."
+      Type: A
+
   ApiMapping:
     Type: AWS::ApiGatewayV2::ApiMapping
     Properties:
