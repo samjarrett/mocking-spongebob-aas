@@ -58,7 +58,6 @@ Resources:
         DNSName: !GetAtt ApiDomainName.RegionalDomainName
         HostedZoneId: !GetAtt ApiDomainName.RegionalHostedZoneId
       Comment: !Sub "DNS Record for ${AWS::StackName}"
-      HostedZoneId: String
       HostedZoneName: !Sub "${BaseDomainName}."
       Name: !Sub "${HostName}.${BaseDomainName}."
       Type: A
