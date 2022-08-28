@@ -48,6 +48,7 @@ Resources:
               - lambda:*
               - iam:*
               - s3:GetObject
+              - route53:*
             Resource: "*"
             Condition:
               "ForAnyValue:StringEquals":
