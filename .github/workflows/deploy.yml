@@ -4,9 +4,9 @@ on:
   push: ~
 
 env:
-  HOST_NAME: mock
-  IS_THIS_HOST_NAME: is-this
-  BASE_DOMAIN_NAME: sam.wtf
+  HOST_NAME: mock.sam.wtf
+  IS_THIS_HOST_NAME: is-this.sam.wtf
+  HOSTED_ZONE_ID: Z0197685Z9QF1NJ2YZA4
 
 jobs:
   test:

@@ -5,7 +5,7 @@ Parameters:
   HostName:
     Type: String
 
-  BaseDomainName:
+  HostedZoneId:
     Type: String
 
   Module:
@@ -15,10 +15,10 @@ Resources:
   Certificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName: !Sub "${HostName}.${BaseDomainName}"
+      DomainName: !Ref HostName
       DomainValidationOptions:
-        - DomainName: !Sub "${HostName}.${BaseDomainName}"
-          ValidationDomain: !Ref BaseDomainName
+        - DomainName: !Ref HostName
+          HostedZoneId: !Ref HostedZoneId
       ValidationMethod: DNS
 
   LogGroupGenerate:
@@ -49,7 +49,7 @@ Resources:
     Properties:
       DomainNameConfigurations:
         - CertificateArn: !Ref Certificate
-      DomainName: !Sub "${HostName}.${BaseDomainName}"
+      DomainName: !Ref HostName
 
   DnsRecord:
     Type: AWS::Route53::RecordSet
@@ -58,8 +58,8 @@ Resources:
         DNSName: !GetAtt ApiDomainName.RegionalDomainName
         HostedZoneId: !GetAtt ApiDomainName.RegionalHostedZoneId
       Comment: !Sub "DNS Record for ${AWS::StackName}"
-      HostedZoneName: !Sub "${BaseDomainName}."
-      Name: !Sub "${HostName}.${BaseDomainName}."
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Sub "${HostName}."
       Type: A
 
   ApiMapping:
