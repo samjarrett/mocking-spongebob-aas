@@ -46,7 +46,7 @@ packaging==20.4
     # via pytest
 pathspec==0.9.0
     # via black
-pillow==9.3.0
+pillow==9.4.0
     # via -r requirements.txt
 platformdirs==2.2.0
     # via
