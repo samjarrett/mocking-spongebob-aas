@@ -4,7 +4,7 @@
 #
 #    pip-compile dev-requirements.in
 #
-astroid==2.11.6
+astroid==2.13.3
     # via pylint
 attrs==19.3.0
     # via pytest
@@ -20,7 +20,7 @@ charset-normalizer==2.0.6
     #   requests
 click==8.0.1
     # via black
-dill==0.3.4
+dill==0.3.6
     # via pylint
 idna==3.2
     # via
@@ -54,7 +54,7 @@ platformdirs==2.2.0
     #   pylint
 pluggy==0.13.1
     # via pytest
-pylint==2.14.5
+pylint==2.15.10
     # via -r dev-requirements.in
 pyparsing==2.4.7
     # via packaging
@@ -76,8 +76,5 @@ urllib3==1.26.7
     # via
     #   -r requirements.txt
     #   requests
-wrapt==1.12.1
+wrapt==1.14.1
     # via astroid
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
