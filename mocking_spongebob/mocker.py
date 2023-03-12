@@ -79,7 +79,7 @@ def generate_image(text: str):
     text = "\n".join(wrap_text(mocking_case(text), 460, FONT))
     height = get_text_height(text)
 
-    image = resize_canvas(canvas_height=(HEIGHT + PADDING + height))
+    image = resize_canvas(canvas_height=HEIGHT + PADDING + height)
     drawer = ImageDraw.Draw(image)
     drawer.multiline_text((10, 10), text, font=FONT, fill=(0, 0, 0), spacing=10)
 
