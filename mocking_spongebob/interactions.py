@@ -35,6 +35,7 @@ def handle_lambda(event, context):  # pylint: disable=unused-argument
             action["response_url"],
             json.dumps(response),
             headers={"Content-type": "application/json"},
+            timeout=10,
         )
 
     response = {
