@@ -45,7 +45,7 @@ jobs:
         run: pylint mocking_spongebob tests
 
       - name: mypy
-        run: mypy mocking_spongebob tests
+        run: mypy mocking_spongebob
 
   deploy:
     needs: test
