@@ -62,7 +62,7 @@ requests==2.30.0
     # via -r requirements.txt
 tomlkit==0.11.6
     # via pylint
-types-requests==2.29.0.0
+types-requests==2.30.0.0
     # via -r dev-requirements.in
 types-urllib3==1.26.25.8
     # via types-requests
