@@ -34,7 +34,7 @@ def generate_image(title: str, text: str):
         anchor="md",
     )
 
-    while font.getsize(text)[0] > (WIDTH - 40):
+    while font.getlength(text) > (WIDTH - 40):
         # iterate until the text size is just larger than the criteria
         font_size -= 1
         font = ImageFont.truetype(font.path, font_size)
