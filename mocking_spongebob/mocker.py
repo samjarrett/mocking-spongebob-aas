@@ -28,7 +28,7 @@ def wrap_text(text: str, width: int, font: ImageFont.FreeTypeFont):
             continue
 
         text_line.append(word)
-        text_width, _ = font.getsize(" ".join(text_line))
+        text_width = font.getlength(" ".join(text_line))
         if text_width > width:
             text_line.pop()
             text_lines.append(" ".join(text_line))
