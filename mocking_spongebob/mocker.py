@@ -45,9 +45,7 @@ def get_text_height(text: str) -> int:
     image = Image.new("RGB", (480, 500))
     drawer = ImageDraw.Draw(image)
 
-    left, top, right, bottom = drawer.multiline_textbbox(
-        (10, 10), text, font=FONT, spacing=10
-    )
+    _, top, _, bottom = drawer.multiline_textbbox((10, 10), text, font=FONT, spacing=10)
 
     height = bottom - top
 
