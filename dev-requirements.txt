@@ -54,7 +54,7 @@ pluggy==1.0.0
     # via pytest
 pylint==3.0.3
     # via -r dev-requirements.in
-pytest==7.4.3
+pytest==7.4.4
     # via -r dev-requirements.in
 requests==2.31.0
     # via -r requirements.txt
