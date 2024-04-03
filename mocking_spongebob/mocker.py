@@ -2,7 +2,7 @@ import sys
 import urllib.parse
 from typing import List, Tuple, Union
 
-from PIL import Image, ImageDraw, ImageFont  # type: ignore
+from PIL import Image, ImageDraw, ImageFont
 from text_manipulations import mocking_case
 from utils import save_image_respond
 
@@ -54,7 +54,7 @@ def get_text_height(text: str) -> int:
 
 def resize_canvas(
     image_path: str = "mocking-spongebob.jpg", canvas_height: int = 369
-) -> Image:
+) -> Image.Image:
     """Resize the canvas to the given height"""
     image = Image.open(image_path)
     width, height = image.size
