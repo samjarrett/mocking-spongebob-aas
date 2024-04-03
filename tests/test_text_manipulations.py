@@ -1,4 +1,4 @@
-from mocking_spongebob import text_manipulations  # type: ignore
+from mocking_spongebob import text_manipulations
 
 
 def test_mocking_case_single_word():

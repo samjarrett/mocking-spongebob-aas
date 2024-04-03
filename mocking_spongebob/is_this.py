@@ -1,7 +1,7 @@
 import sys
 import urllib.parse
 
-from PIL import Image, ImageDraw, ImageFont  # type: ignore
+from PIL import Image, ImageDraw, ImageFont
 from utils import save_image_respond
 
 WIDTH = 750

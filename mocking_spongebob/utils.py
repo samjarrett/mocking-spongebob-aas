@@ -2,10 +2,10 @@ import base64
 from io import BytesIO
 from typing import Any, Dict
 
-from PIL import Image  # type: ignore
+from PIL import Image
 
 
-def save_image_respond(image: Image) -> Dict[str, Any]:
+def save_image_respond(image: Image.Image) -> Dict[str, Any]:
     """Save an imaage to memory, encode and return a lambda response"""
     output_file = BytesIO()
     image.save(output_file, "JPEG")
