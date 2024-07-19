@@ -32,7 +32,7 @@ isort==5.13.2
     #   pylint
 mccabe==0.7.0
     # via pylint
-mypy==1.10.1
+mypy==1.11.0
     # via -r dev-requirements.in
 mypy-extensions==1.0.0
     # via
@@ -64,7 +64,7 @@ types-requests==2.31.0.6
     # via -r dev-requirements.in
 types-urllib3==1.26.25.8
     # via types-requests
-typing-extensions==4.5.0
+typing-extensions==4.12.2
     # via mypy
 urllib3==1.26.19
     # via
