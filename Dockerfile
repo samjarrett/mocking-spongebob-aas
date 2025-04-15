@@ -1,4 +1,4 @@
-FROM public.ecr.aws/sam/build-python3.11
+FROM public.ecr.aws/sam/build-python3.13
 
 WORKDIR /deps
 

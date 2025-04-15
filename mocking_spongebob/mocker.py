@@ -49,7 +49,7 @@ def get_text_height(text: str) -> int:
 
     height = bottom - top
 
-    return height
+    return int(height)
 
 
 def resize_canvas(
@@ -63,8 +63,7 @@ def resize_canvas(
     y_position = canvas_height - height
 
     mode = image.mode
-    if len(mode) == 1:  # L, 1
-        new_background: BackgroundType = 255
+    new_background: BackgroundType = 255
     if len(mode) == 3:  # RGB
         new_background = (255, 255, 255)
     if len(mode) == 4:  # RGBA, CMYK

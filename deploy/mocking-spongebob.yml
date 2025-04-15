@@ -73,7 +73,7 @@ Resources:
     Type: AWS::Serverless::LayerVersion
     Properties:
       CompatibleRuntimes:
-        - python3.11
+        - python3.13
       RetentionPolicy: Delete
       ContentUri: ../build
 
@@ -81,7 +81,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: !Sub "${Module}.handle_lambda"
-      Runtime: python3.11
+      Runtime: python3.13
       CodeUri: ../mocking_spongebob
       Layers:
         - !Ref GenerateLibraries
@@ -98,7 +98,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: slash.handle_lambda
-      Runtime: python3.11
+      Runtime: python3.13
       CodeUri: ../mocking_spongebob
       Timeout: 30
       MemorySize: 128
@@ -114,7 +114,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: interactions.handle_lambda
-      Runtime: python3.11
+      Runtime: python3.13
       CodeUri: ../mocking_spongebob
       Layers:
         - !Ref GenerateLibraries
