@@ -32,7 +32,7 @@ isort==6.0.1
     #   pylint
 mccabe==0.7.0
     # via pylint
-mypy==1.15.0
+mypy==1.16.1
     # via -r dev-requirements.in
 mypy-extensions==1.0.0
     # via
@@ -43,7 +43,9 @@ packaging==24.2
     #   black
     #   pytest
 pathspec==0.12.1
-    # via black
+    # via
+    #   black
+    #   mypy
 pillow==11.3.0
     # via -r requirements.txt
 platformdirs==4.3.7
