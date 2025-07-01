@@ -52,9 +52,11 @@ platformdirs==4.3.7
     #   pylint
 pluggy==1.5.0
     # via pytest
+pygments==2.19.2
+    # via pytest
 pylint==3.3.6
     # via -r dev-requirements.in
-pytest==8.3.5
+pytest==8.4.1
     # via -r dev-requirements.in
 requests==2.32.3
     # via -r requirements.txt
