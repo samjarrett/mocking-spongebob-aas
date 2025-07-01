@@ -60,7 +60,7 @@ requests==2.32.3
     # via -r requirements.txt
 tomlkit==0.13.2
     # via pylint
-types-requests==2.32.0.20250328
+types-requests==2.32.4.20250611
     # via -r dev-requirements.in
 typing-extensions==4.13.2
     # via mypy
