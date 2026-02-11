@@ -48,7 +48,7 @@ pathspec==1.0.3
     # via
     #   black
     #   mypy
-pillow==12.1.0
+pillow==12.1.1
     # via -r requirements.txt
 platformdirs==4.3.7
     # via
