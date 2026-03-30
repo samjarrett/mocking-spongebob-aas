@@ -64,7 +64,7 @@ pytest==9.0.2
     # via -r dev-requirements.in
 pytokens==0.4.1
     # via black
-requests==2.33.0
+requests==2.33.1
     # via -r requirements.txt
 tomlkit==0.13.2
     # via pylint
