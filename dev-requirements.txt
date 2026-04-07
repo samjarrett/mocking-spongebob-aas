@@ -60,7 +60,7 @@ pygments==2.20.0
     # via pytest
 pylint==4.0.5
     # via -r dev-requirements.in
-pytest==9.0.2
+pytest==9.0.3
     # via -r dev-requirements.in
 pytokens==0.4.1
     # via black
