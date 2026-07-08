@@ -4,7 +4,7 @@
 #
 #    pip-compile dev-requirements.in
 #
-ast-serialize==0.3.0
+ast-serialize==0.6.0
     # via mypy
 astroid==4.0.2
     # via pylint
@@ -32,11 +32,11 @@ isort==8.0.1
     # via
     #   -r dev-requirements.in
     #   pylint
-librt==0.11.0
+librt==0.13.0
     # via mypy
 mccabe==0.7.0
     # via pylint
-mypy==2.1.0
+mypy==2.2.0
     # via -r dev-requirements.in
 mypy-extensions==1.0.0
     # via
