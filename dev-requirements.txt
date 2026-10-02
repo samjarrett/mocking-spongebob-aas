@@ -28,7 +28,7 @@ idna==3.15
     #   requests
 iniconfig==2.1.0
     # via pytest
-isort==9.0.1
+isort==9.0.2
     # via
     #   -r dev-requirements.in
     #   pylint
