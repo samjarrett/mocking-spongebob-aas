@@ -6,7 +6,7 @@
 #
 ast-serialize==0.12.1
     # via mypy
-astroid==4.0.2
+astroid==4.3.3
     # via pylint
 black==26.5.1
     # via -r dev-requirements.in
@@ -61,7 +61,7 @@ pluggy==1.5.0
     # via pytest
 pygments==2.20.0
     # via pytest
-pylint==4.0.10
+pylint==4.1.1
     # via -r dev-requirements.in
 pytest==9.1.1
     # via -r dev-requirements.in
