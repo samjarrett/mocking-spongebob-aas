@@ -75,7 +75,7 @@ types-requests==2.33.0.20260906
     # via -r dev-requirements.in
 typing-extensions==4.13.2
     # via mypy
-urllib3==2.7.0
+urllib3==2.8.0
     # via
     #   -r requirements.txt
     #   requests
