@@ -8,7 +8,7 @@ ast-serialize==0.12.1
     # via mypy
 astroid==4.3.3
     # via pylint
-black==26.5.1
+black==26.10.0
     # via -r dev-requirements.in
 certifi==2025.1.31
     # via
